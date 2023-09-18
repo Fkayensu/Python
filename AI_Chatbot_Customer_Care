@@ -1,0 +1,216 @@
+"""
+Demo MTN Customer Care Chatbot
+
+Created Sep 15 19:00:00 2023
+
+@author: Frederick Ayensu
+"""
+
+
+#import libraries
+import pyttsx3
+import PyPDF2
+
+#open pdf reader and initialize speech
+MTNDiary = open('Customer_Care.pdf', 'rb')
+readPdf = PyPDF2.PdfReader(MTNDiary)
+talk = pyttsx3.init()
+
+
+class MTN_Chatbot:
+    
+    #function for account management section of chatbot
+    def Account_Management(self):
+        print("""
+                To check your account balance, press 1.
+                For queries about billing, invoices, and payment methods, press 2.
+                For account changes, such as plan upgrades or downgrades, press 3.
+                
+            """)
+        talk.say("""
+                To check your account balance, press 1.
+                For queries about billing, invoices, and payment methods, press 2.
+                For account changes, such as plan upgrades or downgrades, press 3.
+                
+            """)
+        talk.runAndWait()
+        num = int(input("Reply with the relevant option (1-3) to continue: "))        
+
+        if num == 1:
+            pgNum = readPdf.pages[0]
+            data = pgNum.extract_text()
+            talk.say(data)
+            talk.runAndWait()
+         
+        elif num == 2:
+            pgNum = readPdf.pages[1]
+            data = pgNum.extract_text()
+            talk.say(data)
+            talk.runAndWait()
+         
+        elif num == 3:
+            pgNum = readPdf.pages[2]
+            data = pgNum.extract_text()
+            talk.say(data)
+            talk.runAndWait()
+                
+        else:
+            print("Incorrect option")
+    
+    #function for Technical support section of chatbot
+    def Technical_Support(self):
+        print("""
+                For Issues with network connectivity or signal strength, press 1.
+                For Problems with data services or mobile internet, press 2.
+                For Troubleshooting device-specific issues, like setting up voicemail or configuring network settings, press 3.               
+                """) 
+        talk.say("""
+                For Issues with network connectivity or signal strength, press 1.
+                For Problems with data services or mobile internet, press 2.
+                For Troubleshooting device-specific issues, like setting up voicemail or configuring network settings, press 3.                              
+                """)
+        talk.runAndWait()
+        num = int(input("Reply with the relevant option (1-3) to continue: "))        
+
+        if num == 1:
+            pgNum = readPdf.pages[3]
+            data = pgNum.extract_text()
+            talk.say(data)
+            talk.runAndWait()
+         
+        elif num == 2:
+            pgNum = readPdf.pages[4]
+            data = pgNum.extract_text()
+            talk.say(data)
+            talk.runAndWait()
+         
+        elif num == 3:
+            pgNum = readPdf.pages[5]
+            data = pgNum.extract_text()
+            talk.say(data)
+            talk.runAndWait()
+                
+        else:
+            print("Incorrect option")
+    
+    #function for Number Portability section of chatbot
+    def Number_Portability(self):
+        print("""
+                For queries about porting a phone number from another carrier to the telecom company, Press 1.
+                For information on transferring a phone number to another carrier, Press 2.                
+                """)  
+        talk.say("""
+                For queries about porting a phone number from another carrier to the telecom company, Press 1.
+                For information on transferring a phone number to another carrier, Press 2.                                
+                """)
+        talk.runAndWait()
+        num = int(input("Reply with the relevant option (1-2) to continue: "))        
+
+        if num == 1:
+            pgNum = readPdf.pages[6]
+            data = pgNum.extract_text()
+            talk.say(data)
+            talk.runAndWait()
+         
+        elif num == 2:
+            pgNum = readPdf.pages[7]
+            data = pgNum.extract_text()
+            talk.say(data)
+            talk.runAndWait()
+                
+        else:
+            print("Incorrect option")
+    
+    #function for MTN plans and offers section of chatbot
+    def Plans_and_Offers(self):
+        print("""
+                For questions about available data plans, voice plans, and pricing, Press 1.
+                For inquiries about special promotions, discounts, and offers, Press 2.               
+                """)  
+        talk.say("""
+                For questions about available data plans, voice plans, and pricing, Press 1.
+                For inquiries about special promotions, discounts, and offers, Press 2.               
+                """)
+        talk.runAndWait()
+        
+        num = int(input("Reply with the relevant option (1-2) to continue: "))        
+
+        if num == 1:
+            pgNum = readPdf.pages[8]
+            data = pgNum.extract_text()
+            talk.say(data)
+            talk.runAndWait()
+         
+        elif num == 2:
+            pgNum = readPdf.pages[9]
+            data = pgNum.extract_text()
+            talk.say(data)
+            talk.runAndWait()
+                
+        else:
+            print("Incorrect option")
+    
+    
+    
+    
+#----------------------------Code Driver --------------------------------------
+handle = MTN_Chatbot()
+
+#Introduction
+vic_intro = """Hi, I am Michael, your Customer Care Virtual Assistant.
+Welcome to MTN. How can I help you?
+"""
+print(vic_intro)
+talk.say(vic_intro)
+
+#MTN Customer Care main menu
+bank_menu = """
+            For Account Management, Press 1
+            For Technical Support and Troubleshooting, Press 2
+            For Number Portability and Transfers, Press 3
+            For Plans and Offers, Press 4
+            To Speak to a customer Care Representative, Press 5
+            Otherwise, Press 6 to Hung up
+            
+            """
+print(bank_menu)
+talk.say(bank_menu)
+
+#Select option -display and speak
+talk.say("Reply with the relevant option (1-6) to continue: ")
+talk.runAndWait()
+num = int(input("Reply with the relevant option (1-6) to continue: "))        
+        
+if num == 1:
+    
+    handle.Account_Management()
+    print("Thank you for contacting MTN. Do have a wonderful day")
+    talk.runAndWait()
+ 
+elif num == 2:
+    handle.Technical_Support()
+    print("Thank you for contacting MTN. Do have a wonderful day") 
+    talk.runAndWait()
+    
+elif num == 3:
+    handle.Number_Portability()
+    print("Thank you for contacting MTN. Do have a wonderful day") 
+    talk.runAndWait()
+    
+elif num == 4:
+    handle.Plans_and_Offers()
+    print("Thank you for contacting MTN. Do have a wonderful day")   
+    talk.runAndWait()
+    
+elif num == 5:
+    print("An agent will be with you shortly")
+    talk.say("An agent will be with you shortly")
+    talk.runAndWait()
+    
+elif num == 6:
+    print("Thank you for contacting MTN. Do have a wonderful day")
+    talk.say("Thank you for contacting MTN. Do have a wonderful day")
+    talk.runAndWait()
+    
+else:
+    print("Incorrect option")
