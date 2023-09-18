@@ -1,0 +1,176 @@
+"""
+Expert System: Thinking humanly through mobile network issues diagnosis
+
+Created on Mon Sep 18 12:50:00 2023
+
+@author: Frederick Ayensu
+"""
+
+
+#Mobile Network Expert Diagnosis System Class to house different functions
+class Mobile_Network_Expert_System:
+    
+    #user interface function to welcome and direct customer    
+    def user_interface(self):
+        #Introduction
+        intro = """
+        Welcome to Mobile Network Diagnosis Expert System.
+        Do you have a network challenge?
+        This advanced technology is designed to aid in prompt resolution.
+        """
+        print(intro)        
+        
+        #main menu
+        main_menu = """
+        
+                    1. KNOWLEDGE ACQUISITION.
+                    2. MOBILE NETWORK EXPERT SYSTEM DIAGNOSIS.
+                    """
+        print(main_menu)
+        num = int(input("Reply with the relevant option (1-2) to continue: "))        
+
+        if num == 1:
+            self.acquire_knowledge()
+        elif num == 2:
+            self.expert_system()      
+        else:
+            print("Oops! Incorrect option, try again!")
+            
+    
+    #Acquire knowledge function designed to update knowledge database by Principal Engineers or Experts        
+    def acquire_knowledge(self):
+        ack = """
+        Welcome to the knowledge acquisition section.
+        Access is only for principal engineers.
+        """
+        print(ack)
+        
+    #Expert System Function designed to take input of users problems 
+    def expert_system(self):
+        print("\n Welcome to EXPERT SYSTEM section")    
+        
+        print('\n W H A T    A R E    Y O U  R    M O B I L E   N E T W O R K   P R O B L E M S   T O D A Y:?')
+        observations = """
+                Call Drops, Poor Call Quality, Slow Data Speeds, Latency or Delay, Packet Loss, Network Congestion, 
+                Frequent Network Outages, Interference, High Error Rates, Unusual Traffic Patterns, Equipment Failures, 
+                Billing Discrepancies, Unauthorized Access, Network Performance Degradation, Service Blackouts, 
+                Routing Problems, High Jitter, Unresponsive Devices, DNS Resolution Failures, Echo, One-Way Audio, 
+                Voicemail Failures, SMS/MMS Delivery Failures, Call Setup Failures, Roaming Issues, Billing Errors, 
+                Capacity Problems, 911/Emergency Call Failures, Authentication Failures, Voice Recognition Problems, 
+                VoIP Call Quality Issues, SIM Card Errors, Packet Delay Variation (PDV), Network Security Alerts, 
+                Firmware/Software Bugs, Network Congestion During Events, Call Forwarding Failures, Billing Disputes, 
+                Authentication Delays, VoLTE (Voice over LTE) Issues, Cell Site Failures, Synchronization Issues, 
+                Call Control Failures, Network Configuration Errors, Network Redundancy Failures, Emergency Alert Failures, 
+                Network Traffic Anomalies    
+         """
+        print(observations)
+        
+        print("\n Enter your problems (comma-separated):")
+        customer_input = input().lower().split(',')
+        problems = [problem.strip() for problem in customer_input]
+        
+                        
+        self.problems = problems
+        self.knowledge_base()
+        self.diagnose_inference(problems)       
+    
+    #Knowledge Base Function designed to store network problems and suspected domain information 
+    def knowledge_base(self):
+        knowledge_db = {
+            'circuit switched network core': [
+        'call drops',
+        'poor call quality',
+        'echo',
+        'one-way audio',
+        'voicemail failures',
+        'sms/mms delivery failures',
+        'call setup failures',
+        '911/emergency call failures',
+        'authentication failures',
+        'call forwarding failures'
+    ],
+            'packet switched network core': [
+        'slow data speeds',
+        'latency or delay',
+        'packet loss',
+        'network congestion',
+        'high error rates',
+        'unusual traffic patterns',
+        'dns resolution failures',
+        'voip call quality issues',
+        'packet delay variation (pdv)',
+        'network traffic anomalies'
+    ],
+            'IP Multimedia Subsystem': [
+        'voice recognition problems',
+        'volte (voice over lte) issues',
+        'authentication delays'
+    ],
+            'Transmission Network': [
+        'interference',
+        'equipment failures',
+        'unresponsive devices',
+        'synchronization issues'
+    ],
+            'Radio Access Network': [
+        'roaming issues',
+        'cell site failures'
+    ],
+            'IP Network': [
+        'unauthorized access',
+        'network security alerts',
+        'firmware/software bugs',
+        'network configuration errors',
+        'network redundancy failures',
+        'emergency alert failures'
+    ],
+            'End Device': [
+        'sim card errors',
+        'billing discrepancies',
+        'capacity problems',
+        'billing errors',
+        'service blackouts',
+        'network performance degradation',
+        'routing problems'
+    ]
+            
+        }
+        
+        self.knowledge_db = knowledge_db
+    
+    #Diagnose Inference Function makes a prediction taking the input of customer and references the knowledge base 
+    def diagnose_inference(self, problems):
+        knowledge_db = self.knowledge_db
+        
+        # Ruled-based Inference
+        possible_conditions = [] 
+        for key, values in knowledge_db.items():
+            if set(problems).issubset(set(values)):
+                possible_conditions.append(key)
+                
+        self.possible_conditions = possible_conditions
+        self.explanation()
+    
+    #Explanation Function explains to the customer the diagnosis result and next step required 
+    def explanation(self):        
+        possible_conditions = self.possible_conditions 
+        problems = self.problems            
+        
+        if possible_conditions:
+            print('\n D I A G N O S I S   R E S U L T S')
+            print("Problem Most Likely from this domain:", possible_conditions)
+            print("Contact the customer care team for support.")
+            print("\n Your symptoms: ", problems, " are common causes of the following network domain(s).")
+        else:
+            print("Unknown issue suspected, contact customer care hotline now!")
+            
+            
+            
+    
+    
+   
+#----------------------------Class Driver --------------------------------------
+handle = Mobile_Network_Expert_System()
+
+#using OOP to start the program
+handle.user_interface()
