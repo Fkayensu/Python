@@ -1,0 +1,70 @@
+"""
+Python Programming Review by Frederick Ayensu
+Statistical Functions
+"""
+#import libraries
+from collections import Counter
+#This class contains the mode, median, mean and range functions
+class Stats_Calc:
+    
+    #This function welcomes the program user
+    def welcome(self):
+        print("Welcome to Statistical Functions. This program will calculate the Mean, Median, Mode and Range for a set of numbers entered")
+    
+    #This function calculates the mean of the four entered numbers
+    def mean(self, x1, x2, x3, x4):
+        List_of_numbers = [x1, x2, x3, x4]
+        Mean_of_numbers = sum(List_of_numbers) / len(List_of_numbers)
+        return Mean_of_numbers
+    
+    #This function calculates the median of the four entered numbers
+    def median(self, x1, x2, x3, x4):
+        list_of_numbers = [x1, x2, x3, x4]
+        list_of_numbers.sort()
+        n = len(list_of_numbers)
+        if n % 2 == 0:
+            median1 = list_of_numbers[n // 2]
+            median2 = list_of_numbers[n // 2 - 1]
+            median = (median1 + median2) / 2
+        else:
+            median = list_of_numbers[n // 2]
+        return median
+    
+    #This function calculates the mode of the four entered numbers
+    def mode(self, x1, x2, x3, x4):
+        List_of_numbers = [x1, x2, x3, x4]
+        data = Counter(List_of_numbers)
+        get_mode = dict(data)
+        mode = [k for k, v in get_mode.items() if v == max(list(data.values()))]
+        if len(mode) == len(List_of_numbers):
+            get_mode = "No mode found"
+        else:
+            get_mode = "Mode is / are: " + ', '.join(map(str, mode))
+        return get_mode
+    
+    #This function calculates the range of the four entered numbers
+    def range_(self, x1, x2, x3, x4):
+        list_of_numbers = [x1, x2, x3, x4]
+        list_of_numbers.sort()
+        range_of_numbers = list_of_numbers[3] - list_of_numbers[0]
+        return range_of_numbers
+# --------------------------class driver--------------------------------------------------------
+handle = Stats_Calc()
+#This batch of code takes the input of numbers from the user
+print("You need to enter four numbers")
+x1 = int(input("First number: "))
+x2 = int(input("Second number: "))
+x3 = int(input("Third number: "))
+x4 = int(input("Fourth number: "))
+# Call functions
+handle.welcome()
+#Results are collected
+mean_result = handle.mean(x1, x2, x3, x4)
+median_result = handle.median(x1, x2, x3, x4)
+mode_result = handle.mode(x1, x2, x3, x4)
+range_result = handle.range_(x1, x2, x3, x4)
+#Results are displayed on screen
+print('The mean =', mean_result)
+print('The median =', median_result)
+print(mode_result)
+print('Range result =', range_result)
