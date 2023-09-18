@@ -1,0 +1,102 @@
+'''
+Python Programming Review by Frederick Ayensu
+Data Exploration
+'''
+#import libraries
+import matplotlib.pyplot as plt
+import pandas as pd
+import numpy as np
+#this class seeks to visualize data
+class DE_Visuals:  
+    
+    #this function create the dataframe for the visualization from a dictionary
+    def create_DFrame(self):
+        df = pd.DataFrame.from_dict({"Country": ['Finland','Austria','Sweden','South Korea','Poland', 'Switzerland', 'United States', 'Turkey', 'Japan', 'United Kingdom', 'Australia', 'Canada', 'Germany', 'Mexico'],
+           "Moble_data_usage_GB": [10.95, 6.28, 4.28, 3.83, 3.55, 2.71, 2.67, 2.22, 2.12, 1.84, 1.62, 1.54, 1.49, 1.21],
+           "Mobile_users_Millions": [1.2, 3.1, 2.1, 3.7, 2.8, 4.5, 1.7, 3.2, 0.9, 1.3, 4.6, 1.3, 2.5, 5.1]})
+        # reorganize columns
+        df = df[['Country', 'Moble_data_usage_GB', 'Mobile_users_Millions']]
+        
+        #print to show dataframe is created successfully
+        print("DataFrame created! \n")   
+        self.df = df         #store df in class
+    
+    #this class explores the data set
+    def explore_Data(self, n):
+        df = self.df
+        print(df.head(n))
+        print(" ")
+        print(df.info())   #info about each column
+        print(" ")
+        print(df.shape)
+    
+    #this class describes the data set
+    def describe_Data(self):
+        df = self.df
+        print(" ")
+        print(df.describe())
+    #this class prints out some specified data
+    def access_Data(self, row_num, col_num): 
+        df = self.df
+        print(" ")
+        print(df.iloc[row_num, col_num])    
+    
+    #this class displays a line graph of mobile data users vs mobile data used
+    def line_graph(self, x_var, y_var): 
+        df = self.df
+        df = df.sort_values(x_var)
+        plt.plot(df[x_var], df[y_var])
+        plt.title("Line graph showing Mobile data users vs Mobile data usage")
+        plt.xlabel(x_var)
+        plt.ylabel(y_var)
+        plt.show()
+    
+    #this horizontal bar graph compares countries to their mobile data usage
+    def barh_graph(self, x_var, y_var): 
+        df = self.df 
+        df.sort_values('Moble_data_usage_GB',inplace=True)
+        plt.barh(df[x_var], df[y_var])
+        plt.xlabel(y_var)
+        plt.ylabel(x_var)
+        plt.title("Bar graph showing Countries vs Moble_data_usage_GB")
+        plt.show()
+    
+    #this horizontal bar graph compares countries to the number of their mobile data users
+    def barh_graph2(self, x_var, y_var): 
+        df = self.df 
+        df.sort_values('Mobile_users_Millions',inplace=True)
+        plt.barh(df[x_var], df[y_var])
+        plt.xlabel(y_var)
+        plt.ylabel(x_var)
+        plt.title("Bar graph showing Countries vs Mobile_users_Millions")
+        plt.show()
+        
+        
+        
+        
+        
+#--------------------------class driver--------------------------------------------------------
+handle = DE_Visuals()
+#Call functions
+handle.create_DFrame()
+#takes input from user
+n = int(input ("Enter the number of lines you want to display: " ))
+#data exploration
+handle.explore_Data(n)
+handle.describe_Data()
+row = 2
+col = 1
+handle.access_Data(row, col)
+
+#plots line graph
+x_var = 'Mobile_users_Millions'
+y_var = 'Moble_data_usage_GB'
+handle.line_graph(x_var, y_var)
+#plots bar graph
+x_var = 'Country'
+y_var = 'Moble_data_usage_GB'
+handle.barh_graph(x_var, y_var)
+#plots bar graph
+x_var = 'Country'
+y_var = 'Mobile_users_Millions'
+handle.barh_graph2(x_var, y_var)
